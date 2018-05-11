@@ -1,0 +1,201 @@
+  <div class="row">
+  <div *ngFor="let order of orderList | paginate: {itemsPerPage:8,currentPage:p}" class="col-lg-3">
+    <div class="block">
+
+      <div class="top">
+            <span class="converse">{{order.orderId}}</span>
+      </div>
+
+      <div class="middle">
+        <div *ngFor="let item of items">
+          <div *ngIf="order.name==item">
+            <!-- Card image -->
+            <div class="view overlay zoom">
+              <img class="card-img-top" src="../../../../../assets/order/{{item}}.jpg" alt="Product Image">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <div class="name">{{order.name}}</div>
+        <div class="address">{{ 'farmer_current_order.address' | translate }}:{{order.address?.addressLine}} {{order.address?.city}}
+        {{order.address?.state}} {{order.address?.district}} {{order.address?.pincode}}</div>
+        <div class="quantity">{{ 'farmer_current_order.quantity' | translate }}:{{order.quantity}} Kg</div>
+        <div class="price">{{ 'farmer_current_order.amount' | translate }}: ₹{{order.totalAmount}}</div>
+        <div *ngIf="order.farmerStatus=='Accept'" class="mobile">{{ 'farmer_current_order.customer_mobileno' | translate }}:{{order.mobileNo}}</div>
+      </div>
+      <span *ngIf="order.farmerStatus=='Accept'">
+        <a id="delivered" data-toggle="modal" data-target="#exampleModal3" (click)="setDataOtp(order.orderId,order.otp)"
+          style="margin-top:13px;">
+          {{ 'farmer_current_order.delivered' | translate }}
+        </a>
+        <a id="track" class="launch-map" data-toggle="modal" data-target="#mapModal" (click)="track()"
+          style="margin-top:13px;">Track
+        </a>
+      </span>
+      <span *ngIf="order.farmerStatus==null">
+        <a id="accept" data-toggle="modal" data-target="#exampleModal1" (click)="setData(order.orderId)">
+          {{ 'farmer_current_order.accept' | translate }}
+        </a> |
+        <a id="decline" class="ml-2" data-toggle="modal" data-target="#exampleModal2" (click)="setData(order.orderId)">
+          {{ 'farmer_current_order.decline' | translate }}
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+<pagination-controls (pageChange)="p=$event"></pagination-controls>
+
+<!-- Accept Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ 'farmer_current_order.enter_delivery_info' | translate }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          {{ 'farmer_current_order.enter_delivery_date_and_time' | translate }}:
+          <input type="date" name="deliveryInfo" [(ngModel)]="date">
+          <!-- <input type="time" name="deliveryTime" [(ngModel)]="time"> -->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'farmer_current_order.close' | translate }}</button>
+        <input class="btn btn-primary" type="submit" value="Submit" data-dismiss="modal" (click)="setDeliveryDetails()">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Decline Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ 'farmer_current_order.why_did_you_decline_the_order' | translate }}:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" [(ngModel)]="declineReason" value="I am not able to deliver in that location"
+            checked>
+          <label class="form-check-label" for="exampleRadios1">
+            {{ 'farmer_current_order.i_am_not_able_to_deliver_in_that_location' | translate }}
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" [(ngModel)]="declineReason" value="All the items have been sold out"
+            checked>
+          <label class="form-check-label" for="exampleRadios1">
+            {{ 'farmer_current_order.all_the_items_have_been_sold_out' | translate }}
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" [(ngModel)]="declineReason" value="The order quantity is not sufficient"
+            checked>
+          <label class="form-check-label" for="exampleRadios1">
+            {{ 'farmer_current_order.the_order_quantity_is_not_sufficient' | translate }}
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" [(ngModel)]="declineReason" value="I am not in a good health condition"
+            checked>
+          <label class="form-check-label" for="exampleRadios1">
+            {{ 'farmer_current_order.i_am_not_in_a_good_health_condition' | translate }}
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" [(ngModel)]="declineReason" value="Other reasons" checked>
+          <label class="form-check-label" for="exampleRadios1">
+            {{ 'farmer_current_order.other_reasons' | translate }}
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'farmer_current_order.close' | translate }}</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="setDeclineReason()">{{ 'farmer_current_order.submit' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- deliver Modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ 'farmer_current_order.enter_otp_here' | translate }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group col-md-4">
+          <label for="inputOtp">{{ 'farmer_current_order.otp' | translate }}</label>
+          <input type="text" class="form-control" id="inputOtp" [(ngModel)]="otp">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal4" (click)="checkingOtp()">
+          {{ 'farmer_current_order.confirms' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Rating modal -->
+  <div *ngIf="otpVerified==true">
+    <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{ 'farmer_current_order.rate_the_order' | translate }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <br>
+              <a *ngFor="let item of starList; let i=index " (click)="setStar(i)">
+                <i *ngIf="item" class="fa fa-star-o"></i>
+                <i *ngIf="!item" class="fa fa-star"></i>
+              </a>
+            <br>
+            Rating :- {{rating}} stars
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="rateCustomer()">{{ 'farmer_current_order.submit' | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Accept Modal -->
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:700px;height:700px;margin-bottom: 20px" role="document">
+      <div class="modal-content" style="width:640px;margin-bottom: 20px">
+          <div class="modal-header">
+              <h5 class="modal-title">Navigate to Customer Address - {{WindowRef.p}} Km.</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div #gmap style="width:600px;height:600px"></div>
+            </div>
+          
+      </div>
+    </div>
+  </div>
+  
+  
+
+    

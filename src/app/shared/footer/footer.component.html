@@ -1,0 +1,168 @@
+<!--Footer-->
+<!-- <footer id="myFooter" class="mt-5">
+  <div>
+    <div class="row">
+      <div class="col-sm-3">
+        <h2 class="logo">
+          <a>
+            <img src="../../../assets/Header/kkd_logo.png" class="mt-4 ml-5 foot-logo" width="120" height="120" alt="KKD Logo">
+          </a>
+        </h2>
+      </div>
+      <div class="col-sm-2">
+        <h5>{{ 'footer.get_started' | translate }}</h5>
+        <ul>
+          <li>
+            <a routerLink="/farmer/login" *ngIf="loggedIn==false">{{ 'footer.farmer' | translate }}</a>
+          </li>
+          <li>
+            <a routerLink="/customer/login" *ngIf="loggedIn==false">{{ 'footer.customer' | translate }}</a>
+          </li>
+          <li>
+            <a routerLink="/about">{{ 'footer.about_us' | translate }}</a>
+          </li>
+
+        </ul>
+      </div>
+      <div class="col-sm-2">
+        <h5>{{ 'footer.company_information' | translate }}</h5>
+        <ul>
+
+          <li>
+            <a routerLink="/policies">{{ 'footer.policies' | translate }}</a>
+          </li>
+          <li>
+            <a routerLink="/connect">{{ 'footer.contact_us' | translate }}</a>
+          </li>
+          <li>
+              <a routerLink="/reviews">{{ 'footer.reviews' | translate }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-2">
+        <h5> {{ 'footer.support' | translate }}</h5>
+        <ul>
+          <li>
+            <a routerLink="/help">{{ 'footer.help' | translate }}</a>
+          </li>
+          <li>
+            <a routerLink="/support">{{ 'footer.support' | translate }}</a>
+          </li>
+          <li>
+            <a>{{ 'footer.forums' | translate }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-3">
+        <div class="social-networks">
+          <a  class="twitter">
+            <i class="fa fa-twitter"></i>
+          </a>
+          <a class="facebook">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <a class="google">
+            <i class="fa fa-google-plus"></i>
+          </a>
+        </div>
+        <button type="button" class="btn btn-default" routerLink="/connect">{{ 'footer.contact_us' | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <p>© 2018 {{ 'footer.kisan_ki_dukan' | translate }}</p>
+  </div>
+</footer> -->
+<!--/.Footer-->
+
+<footer>
+  <!-- Top part of Footer starts here -->
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+        <!-- First column -->
+        <div class="col-md-4 col-lg-4 footer-about wow fadeInUp">
+          <img class="logo-footer" src="../../../assets/Header/kkd_logo.png" alt="logo-footer" data-at2x="assets/img/logo.png">
+          <p>
+            {{ 'footer.footer_description' | translate }}
+          </p>
+          <p>
+            <a>{{ 'footer.our_team' | translate }}</a>
+          </p>
+        </div>
+        <!-- Second Column- Contact Us content -->
+        <div class="col-md-4 col-lg-4 offset-lg-1 footer-contact wow fadeInDown">
+          <h3>{{ 'footer.contact' | translate }}</h3>
+          <p>
+            <i class="fa fa-map-marker"></i> {{ 'footer.sapientrazorfish_Gurgaon' | translate }}</p>
+          <p>
+            <i class="fa fa-phone"></i> {{ 'footer.phone' | translate }}: (91) 9897 XXX XXX</p>
+          <p>
+            <i class="fa fa-envelope"></i> {{ 'footer.email' | translate }}:
+            <a href="#">kkd@sapient.com</a>
+          </p>
+          <p>
+            <i class="fa fa-skype"></i> {{ 'footer.skype' | translate }}: KKD</p>
+        </div>
+        <!-- Third Column- Follow Us Content -->
+        <div class="col-md-4 col-lg-3 footer-social wow fadeInUp">
+          <h3>{{ 'footer.follow_us' | translate }}</h3>
+          <p>
+            <a href="#">
+              <i class="fa fa-facebook"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-twitter"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-google-plus"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-pinterest"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bottom part of footer starts here -->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 footer-copyright">
+          <p>&copy; {{ 'footer.kisan_ki_dukan' | translate }}</p>
+        </div>
+        <div class="col-md-7 footer-menu">
+          <nav class="navbar navbar-dark navbar-expand-md">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link scroll-link" routerLink="/about">{{ 'footer.about_us' | translate }}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link scroll-link" routerLink="/policies">{{ 'footer.policies' | translate }}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link scroll-link" routerLink="/help">{{ 'footer.help' | translate }}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link scroll-link" routerLink="/support">{{ 'footer.support' | translate }}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link scroll-link" routerLink="/connect">{{ 'footer.contact' | translate }}</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

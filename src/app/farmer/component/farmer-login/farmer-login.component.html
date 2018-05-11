@@ -1,0 +1,48 @@
+<div id="bgimg" style="margin-top: 5.4rem; padding-bottom: 3rem">
+<div class="container-fluid" style="padding-top: 1.7rem">
+  <h1>{{ 'farmer_login.login_farmer' | translate }}</h1>
+  <div class="card shadow cardwidth">
+    <div class="card-body">
+      <form [formGroup]="rForm" (ngSubmit)="loginFarmer(rForm.value)">
+        <div class="form-group">
+            <div class = "form-comp-top">
+                <div class = "name"><label for="exampleInputEmail1">{{ 'farmer_login.mobile_number' | translate }}</label></div>
+          <input class="form-control" type="text" id="mobileNo" formControlName="mobileNo" placeholder="{{ 'farmer_login.mobile_number' | translate }}">
+          <div *ngIf="rForm.controls['mobileNo'].touched && rForm.controls['mobileNo'].invalid" class="alert">
+            <div *ngIf="rForm.controls['mobileNo'].hasError('minlength')" >
+              {{ 'farmer_login.less_than_10_digits' | translate }}
+            </div>
+            <div *ngIf="rForm.controls['mobileNo'].hasError('maxlength')">
+              {{ 'farmer_login.more_than_10_digits' | translate }}
+           </div>
+           <div *ngIf="rForm.controls['mobileNo'].hasError('required')">
+            {{ 'farmer_login.mobile_number_is_required' | translate }}
+           </div>
+         </div>
+         </div>
+         <div class = "form-comp">
+            <div class = "name"><label for="exampleInputPassword1">{{ 'farmer_login.password' | translate }}</label></div>
+         <input type="password" formControlName="password" class="form-control" id="exampleInputPassword1" placeholder="{{ 'farmer_login.password' | translate }}">
+         <div *ngIf="rForm.controls['password'].touched && rForm.controls['password'].invalid" class="alert">
+          <div *ngIf="rForm.controls['password'].hasError('minlength')" >
+            {{ 'farmer_login.less_than_6_digits' | translate }}
+          </div>
+          <div *ngIf="rForm.controls['password'].hasError('maxlength')">
+            {{ 'farmer_login.more_than_12_digits' | translate }}
+         </div>
+         <div *ngIf="rForm.controls['password'].hasError('required')">
+          {{ 'farmer_login.password_is_required' | translate }}
+         </div>
+       </div>
+     </div>
+     </div>
+     <a routerLink="/farmer/forgetPassword">{{ 'farmer_login.forgot_password' | translate }}</a>
+     <div class = "form-comp-button">
+     <button type="submit" class="btn btn-success" value="Submit Form" [disabled]="!rForm.valid">{{ 'farmer_login.login' | translate }}</button>
+     <button type="submit" class="btn btn-success" routerLink="/farmer/authenticationAndAuthorization">{{ 'farmer_login.register' | translate }}</button>
+   </div>
+    </form>
+ </div>
+</div>
+</div>
+</div>

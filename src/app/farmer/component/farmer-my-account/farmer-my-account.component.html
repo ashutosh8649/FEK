@@ -1,0 +1,106 @@
+<div class="home" style="margin-bottom: 3rem">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-xl-1 btn">
+        <ul class="nav nav-tabs nav-justified sidebar-nav edit">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#profile" role="tab" aria-controls="add">{{ 'my_account.profile' | translate }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#add" role="tab" aria-controls="add">{{ 'my_account.add_address' | translate }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#chPass" role="tab" aria-controls="chPass">{{ 'my_account.change_password' | translate }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#altMob" role="tab" aria-controls="altMob">{{ 'my_account.alternate_mobile' | translate }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#delPro" role="tab" aria-controls="delPro">{{ 'my_account.delete_profile' | translate }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12 col-xl-10 marginComponent" style="margin-top:-1rem">
+        <div class="tab-content">
+          <div class="tab-pane active mt-90" id="profile" role="tabpanel">
+            <div class="container mt-4">
+              <div class="">
+
+                <!-- Card -->
+                <div class="card testimonial-card" *ngIf="farmerInfo">
+
+                  <div class="container">
+                    <div class="row">
+
+                      <div class="col-3">
+                  <!-- Avatar -->
+                  <div class="avatar mx-auto white pt-2">
+                    <img src="./../../../../assets/images/user_img.jpeg" class="rounded-circle" style="text-align: center">
+                  </div>
+                </div>
+                <div class="col-9">
+                  <div class="card-body">
+                    <!-- Name -->
+                    <h4 class="card-title">{{farmerInfo.aadhaarData.firstName}} {{farmerInfo.aadhaarData.lastName}}</h4>
+                    <hr>
+                    <!-- Quotation -->
+                    <p *ngIf="farmerInfo.currentAddress">
+                      <span class="font-weight-bold">{{ 'my_account.current_address' | translate }}: </span>
+                      {{ farmerInfo.currentAddress.addressLine}}, {{farmerInfo.currentAddress.city}}, 
+                      distt. {{farmerInfo.currentAddress.district}} {{farmerInfo.currentAddress.state}}, {{farmerInfo.currentAddress.pincode}}
+                    </p>
+                    <p>
+                        <i class="fa fa-phone" aria-hidden="true"></i><span class="font-weight-bold"> 
+                          {{ 'my_account.current_number' | translate }}: </span>
+                      {{farmerInfo.mobileNo}}
+                    </p>
+                    <p>
+                        <i class="fa fa-phone" aria-hidden="true"></i> <span class="font-weight-bold">
+                         {{ 'my_account.alternate_mobile' | translate }}: 
+                      </span>
+                      {{farmerInfo.alternateNo}}
+                    </p>
+                    <p *ngIf="farmerInfo.cities"> {{ 'my_account.places_where_i_can_deliver' | translate }}:</p>
+                    <p>
+                      <i *ngFor="let city of farmerInfo.cities" lass="fa fa-map-marker" aria-hidden="true">{{city}}&nbsp;&nbsp; </i>
+                    </p>
+                    <p>
+                      <span class="font-weight-bold">{{ 'my_account.current_address' | translate }}: </span>
+                      {{farmerInfo.aadhaarData.permanentAddress.addressLine}}, {{farmerInfo.aadhaarData.permanentAddress.city}}, distt. {{farmerInfo.aadhaarData.permanentAddress.district}},
+                      {{farmerInfo.aadhaarData.permanentAddress.state}}, {{farmerInfo.aadhaarData.permanentAddress.pincode}}
+                    </p>
+                    <p *ngIf="farmerInfo.bankDetails">
+                      <span class="font-weight-bold">{{ 'my_account.aadhaar_address' | translate }}</span>
+                      <br>
+                      <span>{{ 'my_account.account_owner' | translate }}: {{farmerInfo.bankDetails.accountName}}</span>
+                      <br>
+                      <span>{{ 'my_account.account_name' | translate }}: {{farmerInfo.bankDetails.accountNo}}</span>
+                      <br>
+                      <span>{{ 'my_account.account_ifsc' | translate }}:{{farmerInfo.bankDetails.ifscCode}}</span>
+                    </p>
+                  </div>
+                </div>
+                </div>
+                </div>
+                </div>
+              </div>
+              <!-- Card -->
+            </div>
+          </div>
+          <div class="tab-pane" id="add" role="tabpanel">
+            <app-farmer-add-address></app-farmer-add-address>
+          </div>
+          <div class="tab-pane" id="chPass" role="tabpanel">
+            <app-farmer-change-password></app-farmer-change-password>
+          </div>
+          <div class="tab-pane" id="altMob" role="tabpanel">
+            <app-farmer-alternate-mobile></app-farmer-alternate-mobile>
+          </div>
+          <div class="tab-pane" id="delPro" role="tabpanel">
+            <app-farmer-delete-profile></app-farmer-delete-profile>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

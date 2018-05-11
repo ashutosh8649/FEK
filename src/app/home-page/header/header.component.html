@@ -1,0 +1,171 @@
+<header>
+  <div class=" fixed-top">
+    <div class="footer-bottom">
+        <div class="container-fluid">
+          <div class="row">
+            <div class=" col-3">
+                  <a class="nav-link ml-0" (click)="select()" data-toggle="modal" data-target="#locationModal" id="location">{{ 'header.you_are_in' | translate }}
+                    <i class="fa fa-map-marker mr-1 ml-2"></i>{{city}}</a>
+                  </div>
+             <div class="col-9" id="lang-div">
+              <select  class="btn btn-success" #langSelect (change)="translate.use(langSelect.value)" (click)="emitLan(langSelect.value)" id="lang-drop">
+                 <option class="btn btn-light" *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+              </select>
+              </div>
+          </div>
+        </div>
+      </div>
+   <nav class="navbar navbar-expand-md navbar-dark navbar-custom topnav">
+    <a class="navbar-brand">
+      <img src="./../../../assets/Header/kkd_logo.png" width="60" height="60" alt="">
+    </a>
+    <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="container-fluid">
+      <div class="navbar-collapse collapse nav" id="navbarTogglerDemo01">
+
+        <ul class="nav nav-tabs mr-auto" id="myTab" role="tablist">
+          <li class="nav-item" *ngIf="loggedIn==false">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" routerLink="/home" role="tab" aria-controls="home" aria-selected="true">
+              <i class="fa fa-home mr-1"></i>{{ 'header.home' | translate }}</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn==true && role=='Customer'">
+            <a class="nav-link" id="home-tab" data-toggle="tab" routerLink="/customer/myAccount" role="tab" aria-controls="home"
+              aria-selected="true">
+              <i class="fa fa-home mr-1"></i>{{ 'header.my_account' | translate }}</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn==true && role=='Farmer'">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" routerLink="/farmer/dashboard" role="tab" aria-controls="home"
+              aria-selected="true">
+              <i class="fa fa-home mr-1"></i>{{ 'header.dashboard' | translate }}</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn==false">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" routerLink="/productList" role="tab" aria-controls="profile" aria-selected="false">
+              <i class="fa fa-product-hunt mr-1"></i>{{ 'header.products' | translate }}</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn==true && role=='Customer'">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" routerLink="/productList" role="tab" aria-controls="profile" aria-selected="false">
+              <i class="fa fa-product-hunt mr-1"></i>{{ 'header.products' | translate }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="messages-tab" data-toggle="tab" routerLink="/help" role="tab" aria-controls="messages" aria-selected="false">
+              <i class="fa fa-info-circle mr-1"></i>{{ 'header.help' | translate }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="settings-tab" data-toggle="tab" routerLink="/support" role="tab" aria-controls="settings" aria-selected="false">
+              <i class="fa fa-envelope mr-1"></i>{{ 'header.support' | translate }}</a>
+          </li>
+        </ul>
+        <ul *ngIf="loggedIn==false" class="pl-0">
+          <li class="nav-item dropdown">
+            <button type="button" class="btn btn-success dropdown-toggle mt-3" data-toggle="dropdown">
+              {{ 'header.login_signup' | translate }}
+            </button>
+            <div class="dropdown-menu mr-5">
+              <a class="dropdown-item" routerLink="/farmer/login">{{ 'header.login_as_farmer' | translate }}</a>
+              <a class="dropdown-item" routerLink="/customer/login">{{ 'header.login_as_customer' | translate }}</a>
+              <a class="dropdown-item" routerLink="/farmer/authenticationAndAuthorization">{{ 'header.sign_up_as_farmer' | translate }}</a>
+              <a class="dropdown-item" routerLink="/customer/register">{{ 'header.sign_up_as_customer' | translate }}</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="nav nav-tabs" id="myTab" role="tablist" *ngIf="loggedIn==true && role=='Customer'">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/customer/myCart" role="tab" data-toggle="tab">
+              <i class="fa fa-cart-arrow-down mr-1"></i>{{ 'header.my_cart' | translate }}</a>
+          </li>
+        </ul>
+        <ul class="nav nav-tabs" id="myTab" role="tablist" *ngIf="loggedIn==true">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/home" (click)="changeOnClickOfLogOut()" role="tab" data-toggle="tab">
+              <i class="fa fa-sign-out mr-1"></i>{{ 'header.logout' | translate }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+</header>
+
+<!-- Location Modal -->
+<div class="modal fade" id="locationModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title modallabel">{{ 'header.change_city' | translate }}</h4>
+      </div>
+      <!-- this is for body for dropdown to select city -->
+      <div class="modal-body p-2">
+       <select class="dropdown btn btn-light dropdown-toggle " [(ngModel)]="changedCity">
+         <option *ngFor=" let changedCity of cities" value={{changedCity}}>{{changedCity}}</option>
+       </select>
+       <br>
+       <ul>
+         <li>
+          <button  id="_setImg" (click)="set('Delhi')" data-dismiss="modal">
+            <span >
+             <img src="../../../assets/images/delhi.png" class="maincities" alt="Delhi"/>
+             <p >{{ 'header.delhi' | translate }}</p>
+           </span>
+         </button>
+       </li>
+
+       <li>
+        <button id="_setImg"  (click)="set('Mumbai')" data-dismiss="modal">
+         <span>
+          <img src="../../../assets/images/mumbai.png" class="maincities" alt="Mumbai">
+          <p>{{ 'header.mumbai' | translate }}</p>
+        </span>
+      </button>
+    </li>
+
+    <li>
+     <button id="_setImg"  (click)="set('Chandigarh')" data-dismiss="modal">
+       <span>
+         <img src="../../../assets/images/chandigarh.png" class="maincities" alt="Chandigarh">
+         <p>{{ 'header.chandigarh' | translate }}</p>
+       </span>
+     </button>
+   </li>
+
+   <li>
+      <button id="_setImg"  (click)="set('Ahmedabad')" data-dismiss="modal">
+        <span>
+          <img src="../../../assets/images/ahmedabad.png" class="maincities" alt="Ahmedabad">
+          <p>{{ 'header.ahmedabad' | translate }}</p>
+        </span>
+      </button>
+    </li>
+
+    <li>
+        <button id="_setImg"  (click)="set('Hyderabad')" data-dismiss="modal">
+          <span>
+            <img src="../../../assets/images/hyderabad.png" class="maincities" alt="Hyderabad">
+            <p>{{ 'header.hyderabad' | translate }}</p>
+          </span>
+        </button>
+      </li>
+
+      <li>
+          <button id="_setImg"  (click)="set('Chennai')" data-dismiss="modal">
+            <span>
+              <img src="../../../assets/images/chennai.png" class="maincities" alt="Chennai">
+              <p>{{ 'header.chennai' | translate }}</p>
+            </span>
+          </button>
+        </li>
+
+ </ul>
+
+</div>
+<div class="modal-footer">
+  <span>
+    <button type="button" class="btn btn-default " data-dismiss="modal">{{ 'header.cancel' | translate }}</button>
+        <button type="button" class="btn btn-default " data-dismiss="modal" (click)="changeCity()">{{ 'header.save' | translate }}</button>
+  </span>
+</div>
+</div>
+</div>
+</div>

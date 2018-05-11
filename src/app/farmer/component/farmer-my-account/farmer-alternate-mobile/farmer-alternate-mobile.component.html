@@ -1,0 +1,27 @@
+<div class="my-3">
+<h1>{{ 'alternate_mobile_number.alternate_mobile_number' | translate }}</h1>
+<form [formGroup]="rForm" (ngSubmit)="updateFarmerMobile(rForm.value)">
+  <div class = "card">
+    <div class="form-group">
+    <div class = form-comp>
+    <div class = "name"><label for="alternateMobileNumber">{{ 'alternate_mobile_number.enter_mobile_number' | translate }}</label></div>
+    <input type="number" class="form-control" id="alternateMobileNumber" placeholder="{{ 'alternate_mobile_number.enter_mobile_number' | translate }}" formControlName="alternateMobileNumber">
+    <div *ngIf="rForm.controls['alternateMobileNumber'].touched && rForm.controls['alternateMobileNumber'].invalid" class="alert">
+      <div *ngIf="rForm.controls['alternateMobileNumber'].hasError('minlength')" >
+        {{ 'alternate_mobile_number.less_than_10_digits' | translate }}
+      </div>
+      <div *ngIf="rForm.controls['alternateMobileNumber'].hasError('maxlength')">
+        {{ 'alternate_mobile_number.more_than_10_digits' | translate }}
+     </div>
+     <div *ngIf="rForm.controls['alternateMobileNumber'].hasError('required')">
+      {{ 'alternate_mobile_number.mobile_number_required' | translate }}!
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class = form-comp-button>
+    <button type="submit" class="btn btn-success" value="Submit Form" [disabled]="!rForm.valid">{{ 'alternate_mobile_number.update' | translate }}</button>
+    </div>
+  </div>
+</form>
+</div>

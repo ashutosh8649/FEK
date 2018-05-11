@@ -1,0 +1,59 @@
+<div id="bgimg" style="margin-top: 5.4rem; padding-bottom: 3rem">
+<div>
+<div *ngIf="!hideVar" style="padding-top: 1.7rem">
+    <h1> {{ 'aadhaar.register_farmer' | translate }} </h1>
+  <div class="container-fluid">
+    <div class="card cardwidth">
+      <div class="card-body">
+        <form [formGroup]="rForm" (ngSubmit)="sendOtp(rForm.value)">
+          <div class="form-group">
+              <div class = "form-comp-top">
+                  <div class = "name"><label for="aadhaarNo">{{ 'aadhaar.aadhaar_number' | translate }}*</label></div>
+            <input id ="aadhaarNo" class="form-control" type="text" formControlName="aadhaarNo" placeholder="{{ 'aadhaar.aadhaar_number' | translate }}">
+            <div *ngIf="rForm.controls['aadhaarNo'].touched && rForm.controls['aadhaarNo'].invalid" class="alert">
+              <div *ngIf="rForm.controls['aadhaarNo'].hasError('minlength')" >
+                {{ 'aadhaar.less_than_12_digits' | translate }}
+              </div>
+              <div *ngIf="rForm.controls['aadhaarNo'].hasError('maxlength')">
+                {{ 'aadhaar.more_than_12_digits' | translate }}
+             </div>
+             <div *ngIf="rForm.controls['aadhaarNo'].hasError('required')">
+              {{ 'aadhaar.aadhaar_number_required' | translate }}!
+             </div>
+           </div>
+           </div>
+         </div>
+         <div class = "form-comp-button">
+         <button type="submit" class="btn btn-success" value="Submit Form" [disabled]="!rForm.valid">{{ 'aadhaar.send_otp' | translate }}</button>
+      </div>
+        </form>
+     </div>
+   </div>
+ </div></div>
+</div>
+
+<div *ngIf="hideVar" style="padding-top: 1.7rem">
+    <h1> {{ 'aadhaar.verify_otp_to_register_farmer' | translate }} </h1>
+  <div class="container-fluid">
+    <div class="card cardwidth">
+      <div class="card-body">
+        <form [formGroup]="otpForm" (ngSubmit)="verifyOtp(otpForm.value)">
+          <div class="form-group">
+              <div class = "form-comp-top">
+                  <div class = "name"> <label for="exampleInputEmail1">{{ 'aadhaar.enter_otp' | translate }}*</label></div>
+            <input class="form-control" type="text" id="otp" formControlName="otp">
+            <div class="alert" *ngIf=" otpForm.controls['otp'].touched && otpForm.controls['otp'].hasError('required')">
+              {{ 'aadhaar.otp_is_required' | translate }}!
+            </div>
+            </div>
+          </div>
+          <div class = "form-comp-button">
+          <button type="submit" class="btn btn-success" value="Submit Form" [disabled]="!otpForm.valid"> {{ 'aadhaar.verify_otp' | translate }}</button>
+       </div>
+        </form></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

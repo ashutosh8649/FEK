@@ -1,0 +1,29 @@
+.btn{
+min-width: 13rem;
+}
+.marginComponent{
+    margin-top: -150px
+}
+img{
+    height:200px;
+}
+  
+@media screen and (max-width: 600px) {
+   .sidebar-nav{
+       display:inline;
+   }
+  }
+
+  a {
+    color: #29a745;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}

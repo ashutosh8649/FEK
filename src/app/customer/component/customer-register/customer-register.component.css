@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:400,700');
+
+.form-container {
+    display:block;
+    width:90%;
+    padding:2em;
+    margin: 2em auto;
+    background:#fff;
+}
+
+.alert {
+    background: #ffaaaa;
+    padding: 0px;
+    font-size: .9em;
+    margin-bottom: 0px;
+    display: inline-block;
+    animation: 2s alertAnim forwards;
+}
+button{
+    border : none;
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
+button:focus{
+    border-color : #f9f9f9 !important;
+}
+h1 {
+    font-weight: 400;
+    padding: 0.5em 0 40px 0;
+    text-align: center;
+    margin: 0;
+    color: #28a745;
+    line-height: 42px;
+    font-size: 1.7rem;
+    }
+
+@keyframes alertAnim {
+    from {
+        opacity:0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity:1;
+        transform: translateY(0);
+    }
+}
+
+body {
+    background:#e8e8e8;
+}
+
+.cardwidth{
+    margin: 0 auto;
+    width : 52%;
+    background-color: #f9f9f9;
+}
+.form-comp-top{
+    margin-top: 40px;
+}
+.form-comp{
+    margin-top: 25px;
+}
+.form-comp-button{
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 12px;
+}
+#bgimg{
+    background-image: url(../../../../assets/images/backg4.jpg); 
+    background-size: cover;
+    background-repeat: no-repeat;
+}

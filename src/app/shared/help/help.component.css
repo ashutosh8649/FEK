@@ -1,0 +1,21 @@
+/* CSS for card header */
+.card-header{
+	background: white;
+	height: 70px;
+	padding-top: 20px;
+	font-size: 20px;
+}
+/* Color for text in Anchor */
+a{
+	color:#29a745;
+}
+/* CSS for Heading text */
+h1 {
+    font-weight: 400;
+    padding: 0.5em 0 40px 0;
+    text-align: center;
+    margin: 0;
+    color: #28a745;
+    line-height: 42px;
+    font-size: 1.7rem;
+    }

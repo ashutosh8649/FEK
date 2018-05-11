@@ -1,0 +1,115 @@
+<div class="container mt-100">
+  <div class="row">
+    <div class="col-sm-12 col-md-10">
+      <form class="form-inline mt-2 mt-md-0">
+        <input class="form-control  searchText" type="text" name="q" placeholder="{{ 'products.search' | translate }}" [(ngModel)]="searchInput"/>
+        <button class="btn btn-outline-primary my-2 my-sm-0 ml-1" type="submit" (click)='searchProduct()'>
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+    </div>
+    <div class="col-sm-12 col-md-2">
+      <label class="text-heading">
+        <select class="btn btn-success" #langSelect (change)="sortBy(langSelect.value)">
+          <option class="btn btn-light" [value]="'priceLH'">{{ 'products.price_low_to_high' | translate }}</option>
+          <option class="btn btn-light" [value]="'priceHL'">{{ 'products.price_high_to_low' | translate }}</option>
+          <option class="btn btn-light" [value]="'quantityLH'">{{ 'products.quantity_low_to_high' | translate }}</option>
+          <option class="btn btn-light" [value]="'quantityHL'">{{ 'products.quantity_high_to_low' | translate }}</option>
+        </select>
+      </label>
+    </div>
+  </div>
+</div>
+<!-- end of header for customer-->
+<div class="container-fluid my-4">
+  <div class="row">
+    <div class="col-md-2" style="margin-left: 1rem">
+      <!-- filtered by price start-->
+
+      <label class="my-3">
+        <span>{{ 'products.filter_by_price' | translate }}</span>
+      </label>
+      <ion-range-slider #sliderElement type="double" min="0" [max]=max_price_slider [to]=max_price_slider prefix="{{ 'products.price' | translate }}:"
+        postfix=" Rs" keyboard:true (onFinish)="myOnFinishPrice($event)">
+      </ion-range-slider>
+      <!-- filtered by price end-->
+      <!-- filtered by quantity start-->
+      <label class="my-3">
+        <span>{{ 'products.filter_by_quantity' | translate }}</span>
+      </label>
+      <ion-range-slider #sliderElement type="double" min="0" [max]=max_quantity_slider [to]=max_quantity_slider prefix="{{ 'products.quantity' | translate }}:"
+        postfix=" Kg" (onFinish)="myOnFinishQuantity($event)">
+      </ion-range-slider>
+      <!-- filtered by Quantity end-->
+    </div>
+
+    <!-- end of side bar-->
+    <div *ngIf="products[0]; then prod else empty"></div>
+    <ng-template #prod>
+      <div class="col-md-9">
+        <div class="container">
+            <span class="searchResults">
+                {{ 'products.showing' | translate }} {{(p-1)*productsToShowInOnePage+1}} – 
+                <span *ngIf="p!=lastpage; else lastpagee;">{{p*productsToShowInOnePage}}</span>
+                <ng-template #lastpagee>
+                    {{products.length}}
+                </ng-template>
+
+                 {{ 'products.results_of' | translate }} {{products.length}} <span *ngIf="searchTextDisplay">{{ 'products.for' | translate }} "{{searchTextDisplay}}"</span>
+            </span>
+          <div class="row">
+            <div class="col-md-6 col-lg-4" *ngFor="let item of products | paginate:{itemsPerPage:productsToShowInOnePage,currentPage:p}">
+              <div class="block">
+                <div class="middle">
+                  <img src="{{item.imageUrl}}" alt="product image" />
+                </div>
+                <a (click)="addToCart(item)" data-toggle="modal" data-target="#exampleModal1">
+                <div class="bottom mt-1">
+                  <div class="heading">{{item.productName}}</div>
+                  <div class="info">{{item.description}}</div>
+                  <div class="quantity">{{ 'products.quantity' | translate }}: {{item.quantity}} Kg</div>
+                  <div class="price">{{ 'products.price' | translate }}: ₹{{item.price}}/kg.</div>
+                </div>
+                <span *ngIf="role=='Customer'">
+                    <a id="addbutton" (click)="addToCart(item)" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-cart-plus" aria-hidden="true"></i>{{ 'products.add_to_bag' | translate }}</a>
+                </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of search results-->
+        <pagination-controls *ngIf="products.length>productsToShowInOnePage" (pageChange)="p=$event"></pagination-controls>
+      </div>
+    </ng-template>
+    <ng-template #empty>
+      <div class="col-md-9 col-sm-12">
+        <img src="./../../../../assets/images/not-found.png" alt="no products found" class="emptyList">
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<!-- Quantity Change -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter Quantity{{ 'products.enter_qantity' | translate }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="recipient-name" class="col-form-label">{{ 'products.please_enter_qantity' | translate }}</label>
+          <input type="number" min="1" class="form-control" id="recipient-name" [(ngModel)]="enteredQuant">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'products.close' | translate }}</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="proceed()">{{ 'products.proceed' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

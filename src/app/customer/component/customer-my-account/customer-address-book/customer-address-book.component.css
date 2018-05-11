@@ -1,0 +1,45 @@
+h1 {
+    font-weight: 400;
+    padding: 0.5em 0 40px 0;
+    text-align: center;
+    margin: 0;
+    color: #28a745;
+    line-height: 42px;
+    font-size: 1.7rem;
+    }
+form{
+    width : 70%;
+    margin : 0 auto;
+}
+
+#card{
+    height: 145px;
+    width: 220px;
+    margin-top: 1rem;
+    margin-left: 0;
+    background-color: white;
+    border: #C7C7C7 solid 1px;
+    box-shadow: 0 2px 1px 0 rgba(0,0,0,.16);
+    box-sizing: border-box;
+    font-size: 13px;
+}
+
+.add_card{
+    text-align: center;
+}
+
+#add_icon{
+    color: grey;
+}
+
+#address_icon{
+    width: 4rem;
+    height:4rem;
+}
+.container{
+    padding-bottom: 3rem;
+}
+
+#main_div{
+    margin-bottom: 3rem;
+}
